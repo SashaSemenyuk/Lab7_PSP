@@ -223,12 +223,20 @@ public class MySQLService {
                 statement.setObject(i + 1, value);
             }
 
+            // Добавляем еще один параметр для условия WHERE
+            statement.setObject(params.size() + 1, params.get(0)); // Используем параметр Name для условия WHERE
+
+            // Вывести SQL-запрос для отладки
+            System.out.println("SQL Query: " + statement.toString());
+
             int rows = statement.executeUpdate();
-            System.out.printf("Added %d rows", rows);
+            System.out.printf("Updated %d rows", rows);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
 
 }

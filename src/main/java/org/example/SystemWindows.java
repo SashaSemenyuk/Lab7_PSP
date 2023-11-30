@@ -3,18 +3,18 @@ package org.example;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.awt.event.WindowAdapter;
 import javax.swing.*;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.text.MaskFormatter;
 
 import static org.example.MySQLService.selectMedicines;
@@ -24,25 +24,25 @@ public class SystemWindows extends JFrame implements ActionListener {
     private JTextField textFieldMedicineName, textFieldPrice, textFieldDisease;
     private JFormattedTextField formattedTextFieldYear, formattedTextFieldExpiryDate;
     private JButton buttonSubmit, buttonDelete, buttonSearch;
-    private java.util.List<String> searchParams;
-    private java.util.List<String> addParams;
-    private java.util.List<String> deleteParams;
+    private List<String> searchParams;
+    private List<String> addParams;
+    private List<String> deleteParams;
     private static JFrame frame;
     private static JTable table;
     private JTextField textFieldSearch;
 
     public SystemWindows() {
-    }
-
-    public void addMedicineForm(boolean isChange) throws ParseException {
-        setTitle("Form for Adding Medicine Data");
-        setLayout(null);
-
+        // Инициализация полей
         textFieldMedicineName = new JTextField();
         formattedTextFieldYear = new JFormattedTextField(createFormatter("####"));
         formattedTextFieldExpiryDate = new JFormattedTextField(createFormatter("####-##-##"));
         textFieldPrice = new JTextField();
         textFieldDisease = new JTextField();
+    }
+
+    public void addMedicineForm(boolean isChange) throws ParseException {
+        setTitle("Form for Adding Medicine Data");
+        setLayout(null);
 
         formattedTextFieldYear.setBounds(320, 100, 60, 25);
         formattedTextFieldExpiryDate.setBounds(450, 100, 100, 25);
@@ -81,7 +81,7 @@ public class SystemWindows extends JFrame implements ActionListener {
         if (!isChange) buttonSubmit.addActionListener(this);
         else buttonSubmit.addActionListener(change);
 
-        setSize(700, 300);
+        setSize(700, 400);
         Color backgroundColor = new Color(255, 255, 255);
         getContentPane().setBackground(backgroundColor);
         setVisible(true);
@@ -96,7 +96,6 @@ public class SystemWindows extends JFrame implements ActionListener {
         setTitle("Form for Medicine Operations");
         setLayout(null);
 
-        textFieldMedicineName = new JTextField();
         JLabel labelMedicineName = new JLabel("Medicine Name:");
         labelMedicineName.setBounds(50, 50, 100, 25);
         textFieldMedicineName.setBounds(160, 50, 200, 25);
@@ -236,11 +235,16 @@ public class SystemWindows extends JFrame implements ActionListener {
                 addParams.add(formattedTextFieldExpiryDate.getText());
                 addParams.add(textFieldPrice.getText());
                 addParams.add(textFieldDisease.getText());
+
+                System.out.println("Before changeMedicine - Medicine Name: " + textFieldMedicineName.getText());
+
                 System.out.println("Medicine Name: " + textFieldMedicineName.getText());
                 System.out.println("Year of Manufacture: " + formattedTextFieldYear.getText());
                 System.out.println("Expiry Date: " + formattedTextFieldExpiryDate.getText());
                 System.out.println(addParams);
-                MySQLService.addMedicine(addParams);
+
+                System.out.println(addParams);
+                MySQLService.changeMedicine(addParams);
             } catch (Exception ex) {
                 Logger.getLogger(SystemWindows.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -283,4 +287,3 @@ public class SystemWindows extends JFrame implements ActionListener {
         return formatter;
     }
 }
-
