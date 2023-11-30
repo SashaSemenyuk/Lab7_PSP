@@ -236,6 +236,7 @@ public class SystemWindows extends JFrame implements ActionListener {
                 addParams.add(formattedTextFieldExpiryDate.getText());
                 addParams.add(textFieldPrice.getText());
                 addParams.add(textFieldDisease.getText());
+                System.out.println("Medicine Name: " + textFieldMedicineName.getText());
                 System.out.println("Year of Manufacture: " + formattedTextFieldYear.getText());
                 System.out.println("Expiry Date: " + formattedTextFieldExpiryDate.getText());
                 System.out.println(addParams);
