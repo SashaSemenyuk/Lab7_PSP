@@ -56,7 +56,7 @@ public class MedicineOperations extends JFrame {
         add(searchDiseaseButton);
         add(exitButton);
 
-        Color backgroundColor = new Color(253, 188, 180);
+        Color backgroundColor = new Color(255, 255, 255);
         getContentPane().setBackground(backgroundColor);
     }
 
