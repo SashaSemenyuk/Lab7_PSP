@@ -82,7 +82,7 @@ public class SystemWindows extends JFrame implements ActionListener {
         else buttonSubmit.addActionListener(change);
 
         setSize(700, 300);
-        Color backgroundColor = new Color(253, 188, 180);
+        Color backgroundColor = new Color(255, 255, 255);
         getContentPane().setBackground(backgroundColor);
         setVisible(true);
         addWindowListener(new WindowAdapter() {
@@ -111,7 +111,7 @@ public class SystemWindows extends JFrame implements ActionListener {
         else buttonDelete.addActionListener(check);
 
         setSize(700, 200);
-        Color backgroundColor = new Color(253, 188, 180);
+        Color backgroundColor = new Color(222, 222, 222, 255);
         getContentPane().setBackground(backgroundColor);
         setVisible(true);
         addWindowListener(new WindowAdapter() {
@@ -138,7 +138,7 @@ public class SystemWindows extends JFrame implements ActionListener {
         if(isName) buttonSearch.addActionListener(searchName);
         else buttonSearch.addActionListener(searchDisease);
         setSize(300, 200);
-        Color backgroundColor = new Color(253, 188, 180);
+        Color backgroundColor = new Color(243, 253, 180);
         getContentPane().setBackground(backgroundColor);
         setVisible(true);
         addWindowListener(new WindowAdapter() {
@@ -160,7 +160,7 @@ public class SystemWindows extends JFrame implements ActionListener {
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        Color backgroundColor = new Color(253, 188, 180);
+        Color backgroundColor = new Color(255, 255, 255);
         getContentPane().setBackground(backgroundColor);
 
         setVisible(true);
