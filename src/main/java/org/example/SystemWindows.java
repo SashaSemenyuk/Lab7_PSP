@@ -229,14 +229,17 @@ public class SystemWindows extends JFrame implements ActionListener {
     ActionListener change = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            try{
+            try {
                 addParams = new ArrayList<>();
                 addParams.add(textFieldMedicineName.getText());
                 addParams.add(formattedTextFieldYear.getText());
                 addParams.add(formattedTextFieldExpiryDate.getText());
                 addParams.add(textFieldPrice.getText());
                 addParams.add(textFieldDisease.getText());
-                MySQLService.changeMedicine(addParams);
+                System.out.println("Year of Manufacture: " + formattedTextFieldYear.getText());
+                System.out.println("Expiry Date: " + formattedTextFieldExpiryDate.getText());
+                System.out.println(addParams);
+                MySQLService.addMedicine(addParams);
             } catch (Exception ex) {
                 Logger.getLogger(SystemWindows.class.getName()).log(Level.SEVERE, null, ex);
             }
