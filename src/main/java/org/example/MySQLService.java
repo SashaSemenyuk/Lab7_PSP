@@ -170,25 +170,63 @@ public class MySQLService {
         int parameterCount = 0;
         String sql = "UPDATE medicine SET Name = ?, Year_of_Manufacture = ?, Expiry_Date = ?, " +
                 "Price = ?, Disease = ? WHERE Name = ?";
-        try {
-            Connection connection = DriverManager.getConnection(url, username, password);
-            PreparedStatement statement = connection.prepareStatement(sql);
+        DecimalFormat priceFormat = new DecimalFormat("0.00");
+
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
             for (int i = 0; i < params.size(); i++) {
                 String param = params.get(i);
                 Object value = param;
-                if (i == 2 || i == 3) {
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    value = dateFormat.parse(param);
+
+                if (i == 1) {
+                    if (!param.isEmpty()) {
+                        try {
+                            System.out.println("Year string: " + param);
+                            value = Integer.parseInt(param);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                            value = null;
+                        }
+                    } else {
+                        value = null;
+                    }
+                } else if (i == 2) {
+                    if (!param.isEmpty()) {
+                        try {
+                            System.out.println("Date string: " + param);
+                            java.util.Date utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(param);
+                            System.out.println("Parsed date: " + utilDate);
+                            value = new java.sql.Date(utilDate.getTime());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            value = null;
+                        }
+                    } else {
+                        value = null;
+                    }
+                } else if (i == 3) {
+                    if (!param.isEmpty()) {
+                        try {
+                            System.out.println("Setting price: " + param);
+                            value = priceFormat.parse(param).doubleValue();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            value = null;
+                        }
+                    } else {
+                        value = null;
+                    }
                 }
+
+                System.out.println("Setting value: " + value);
                 statement.setObject(i + 1, value);
-                parameterCount++;
             }
-            statement.setString(parameterCount + 1, searchParams.get(0));
+
             int rows = statement.executeUpdate();
-            System.out.printf("Updated %d rows", rows);
-            statement.close();
-            connection.close();
-        } catch (Exception e) {
+            System.out.printf("Added %d rows", rows);
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
